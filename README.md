@@ -34,7 +34,7 @@
     ```
 
 5. **Detail Koneksi MQTT**:
-    - Tentukan alamat broker MQTT, username, password, dan port.
+    - Tentukan alamat broker MQTT, username, password, dan port. Disini kita menggunakan broker MQTT yang bersifat publik, yaitu Broker Emqx.
 
     ```cpp
     const char* mqtt_server = "broker.emqx.io";
