@@ -7,7 +7,6 @@
     #include <ESP8266WiFi.h>
     #include <PubSubClient.h>
     #include <ArduinoJson.h>
-    #include <Servo.h>
     ```
 
 2. **Mendefinisikan Pin**:
