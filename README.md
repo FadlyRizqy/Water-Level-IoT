@@ -1,4 +1,6 @@
-### Modul 2: Pembuatan Kode Arduino:
+### Modul 1: Merancang Rangkaian NodeMCU
+
+### Modul 2: Pembuatan Kode Arduino
 
 1. **Library Import**:
     - Impor library yang dibutuhkan untuk koneksi WiFi, MQTT, JSON, dan kontrol servo (meskipun servo tidak digunakan di sini).
