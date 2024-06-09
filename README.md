@@ -1,4 +1,56 @@
+## Kebutuhan
+
+- NodeMCU
+- Board extender
+- Kabel USB
+- Sensor Ultrasonik
+- Relay
+- Buzzer
+- Kabel jumper
+- Jack DC adapter
+- Adaptor 9V
+- Obeng kecil
+- Laptop
+- Bracket Sensor (?)
+
 ### Modul 1: Merancang Rangkaian NodeMCU
+
+1. **Pasang NodeMCU ke Board Extender**
+   - Pasangkan NodeMCU ke dalam board extender.
+
+2. **Hubungkan Sensor Ultrasonik**
+   - Sambungkan 4 kabel jumper ke masing-masing pinout pada sensor ultrasonik: VCC, TRIG, ECHO, dan GND.
+   - Hubungkan pin VCC ke pin 5V pada board extender.
+   - Hubungkan pin GND ke pin GND pada board extender.
+   - Hubungkan pin TRIG ke pin D5 pada board extender.
+   - Hubungkan pin ECHO ke pin D6 pada board extender.
+
+3. **Hubungkan Relay**
+   - Sambungkan 3 kabel jumper ke masing-masing pinout pada relay: VCC, GND, dan IN.
+   - Hubungkan pin VCC ke pin 3V pada board extender.
+   - Hubungkan pin GND ke pin GND pada board extender.
+   - Hubungkan pin IN ke pin D7 pada board extender.
+
+4. **Hubungkan Buzzer ke Relay**
+   - Sambungkan kabel hitam dari buzzer ke pin NO pada relay dan kencangkan menggunakan obeng.
+   - Sambungkan kabel merah dari buzzer ke kutub positif pada jack DC adapter.
+
+5. **Hubungkan Kabel Negatif**
+   - Pasangkan kabel tunggal ke kutub negatif pada jack DC adapter.
+   - Hubungkan ujung lain dari kabel tunggal ke pin COM pada relay.
+
+6. **Hubungkan Adaptor 9V**
+   - Colokkan jack DC adapter ke konektor adaptor 9V.
+
+7. **Berikan Daya ke NodeMCU**
+   - Colokkan konektor adaptor 9V ke board extender untuk memberikan daya ke NodeMCU.
+
+## Catatan
+
+- Pastikan semua sambungan sudah aman dan benar sebelum menyalakan adaptor.
+- Gunakan obeng kecil untuk mengencangkan sambungan kabel pada relay dan jack DC agar tidak mudah lepas.
+
+---
 
 ### Modul 2: Pembuatan Kode Arduino
 
