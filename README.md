@@ -1,6 +1,4 @@
-Berikut adalah langkah-langkah untuk membuat dan memahami kode Arduino yang terhubung dengan MQTT dan mengukur jarak menggunakan sensor ultrasonik, serta mengendalikan relay berdasarkan jarak tersebut:
-
-### Langkah-langkah Pembuatan Kode Arduino:
+### Modul 2: Pembuatan Kode Arduino:
 
 1. **Library Import**:
     - Impor library yang dibutuhkan untuk koneksi WiFi, MQTT, JSON, dan kontrol servo (meskipun servo tidak digunakan di sini).
