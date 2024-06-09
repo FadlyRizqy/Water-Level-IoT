@@ -229,8 +229,6 @@
     - Fungsi ini berjalan terus-menerus, memeriksa koneksi MQTT, membaca data dari sensor ultrasonik, dan mengirim data tersebut ke broker MQTT.
     - Sensor ultrasonik digunakan untuk mengukur jarak, dan jika jarak >= 30 cm, relay diaktifkan dan kondisi diatur ke `1` (aman). Jika jarak < 30 cm, relay dimatikan dan kondisi diatur ke `0` (berbahaya).
 
-Dengan mengikuti langkah-langkah di atas, Anda akan dapat membuat dan memahami kode yang terhubung ke WiFi, mengukur jarak menggunakan sensor ultrasonik, mengendalikan relay, dan mengirim data ke broker MQTT.
-
 #--------------------------------------------------------------------------------------
 
 ### Modul 3: Programming Block Aplikasi MQTT
@@ -303,11 +301,7 @@ Dengan mengikuti langkah-langkah di atas, Anda akan dapat membuat dan memahami k
 5. **Menampilkan Data**:
     - Data yang diterima akan ditampilkan di label `jarak` dan `kondisi` sesuai dengan nilai yang diterima dari pesan MQTT.
 
-Dengan langkah-langkah dan blok pemrograman di atas, aplikasi Anda akan dapat terhubung ke broker MQTT, menerima pesan, dan menampilkan data sesuai yang diharapkan.
-
 ### Jelasin di latar apa itu broker emqx
-
-
 #--------------------------------------------------------------------------------------
 
 ### Modul 4: Ujicoba NodeMCU dan Aplikasi
