@@ -1,3 +1,187 @@
+Berikut adalah langkah-langkah untuk membuat dan memahami kode Arduino yang terhubung dengan MQTT dan mengukur jarak menggunakan sensor ultrasonik, serta mengendalikan relay berdasarkan jarak tersebut:
+
+### Langkah-langkah Pembuatan Kode Arduino:
+
+1. **Library Import**:
+    - Impor library yang dibutuhkan untuk koneksi WiFi, MQTT, JSON, dan kontrol servo (meskipun servo tidak digunakan di sini).
+
+    ```cpp
+    #include <ESP8266WiFi.h>
+    #include <PubSubClient.h>
+    #include <ArduinoJson.h>
+    #include <Servo.h>
+    ```
+
+2. **Mendefinisikan Pin**:
+    - Tentukan pin yang digunakan untuk sensor ultrasonik dan relay.
+
+    ```cpp
+    #define TRIG D5
+    #define ECHO D6
+    #define RELAY D7
+    ```
+
+3. **Deklarasi Variabel**:
+    - Deklarasikan variabel global `condition`.
+
+    ```cpp
+    int condition;
+    ```
+
+4. **Detail Koneksi WiFi**:
+    - Tentukan SSID dan password WiFi yang akan digunakan untuk koneksi.
+
+    ```cpp
+    const char* ssid = "Rexa";
+    const char* password = "AryaFadly2014";
+    ```
+
+5. **Detail Koneksi MQTT**:
+    - Tentukan alamat broker MQTT, username, password, dan port.
+
+    ```cpp
+    const char* mqtt_server = "broker.emqx.io";
+    const char* mqtt_username = "emqx";
+    const char* mqtt_password = "public";
+    const int mqtt_port =1883;
+    ```
+
+6. **Inisialisasi WiFi dan MQTT Client**:
+    - Buat objek untuk WiFi dan MQTT client.
+
+    ```cpp
+    WiFiClient espClient;
+    PubSubClient client(espClient);
+    ```
+
+7. **Fungsi Koneksi WiFi**:
+    - Buat fungsi untuk menghubungkan ke WiFi.
+
+    ```cpp
+    void setup_wifi() {
+      delay(10);
+      Serial.print("\nConnecting to ");
+      Serial.println(ssid);
+
+      WiFi.mode(WIFI_STA);
+      WiFi.begin(ssid, password);
+
+      while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+      randomSeed(micros());
+      Serial.println("\nWiFi connected\nIP address: ");
+      Serial.println(WiFi.localIP());
+    }
+    ```
+
+8. **Fungsi Koneksi ke MQTT Broker**:
+    - Buat fungsi untuk menghubungkan ke broker MQTT.
+
+    ```cpp
+    void reconnect() {
+      while (!client.connected()) {
+        Serial.print("Attempting MQTT connection...");
+        String clientId = "ESP8266Client-";   
+        clientId += String(random(0xffff), HEX);
+        if (client.connect(clientId.c_str(), mqtt_username, mqtt_password)) {
+          Serial.println("connected");
+        } else {
+          Serial.print("failed, rc=");
+          Serial.print(client.state());
+          Serial.println(" try again in 5 seconds");
+          delay(5000);
+        }
+      }
+    }
+    ```
+
+9. **Fungsi Publish Pesan ke MQTT**:
+    - Buat fungsi untuk mengirim pesan ke broker MQTT.
+
+    ```cpp
+    void publishMessage(const char* topic, String payload, boolean retained) {
+      if (client.publish(topic, payload.c_str(), true))
+        Serial.println("Message published [" + String(topic) + "]: " + payload);
+    }
+    ```
+
+10. **Setup Fungsi**:
+    - Konfigurasi pin, koneksi WiFi, dan pengaturan MQTT server.
+
+    ```cpp
+    void setup() {
+      pinMode(TRIG, OUTPUT);
+      pinMode(ECHO, INPUT);
+      pinMode(RELAY, OUTPUT);
+      digitalWrite(RELAY, LOW);
+      Serial.begin(9600);
+      while (!Serial) delay(1);
+      setup_wifi();
+      client.setServer(mqtt_server, mqtt_port);
+    }
+    ```
+
+11. **Loop Fungsi**:
+    - Periksa koneksi MQTT, baca data dari sensor ultrasonik, kirim data ke broker MQTT, dan kendalikan relay berdasarkan jarak.
+
+    ```cpp
+    void loop() {
+      if (!client.connected()) reconnect();
+      client.loop();
+
+      digitalWrite(TRIG, LOW);
+      delayMicroseconds(2);
+      digitalWrite(TRIG, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(TRIG, LOW);
+
+      long duration = pulseIn(ECHO, HIGH);
+      float distance = (duration * 0.0343) / 2;
+
+      Serial.print("Jarak: ");
+      Serial.print(distance);
+      Serial.println(" cm");
+
+      if (distance >= 30) {
+        digitalWrite(RELAY, HIGH);
+        condition = 1;
+      } else {
+        digitalWrite(RELAY, LOW);
+        condition = 0;
+      }
+
+      Serial.print("Condition: ");
+      Serial.println(condition);
+
+      String msgStr = String(distance) + "," + String(condition);
+      byte arrSize = msgStr.length() + 1;
+      char msg[arrSize];
+
+      Serial.print("PUBLISH DATA:");
+      Serial.println(msgStr);
+      msgStr.toCharArray(msg, arrSize);
+      publishMessage("water_data", msg, true);
+      msgStr = "";
+
+      delay(1000);
+    }
+    ```
+
+### Penjelasan Kode:
+
+- **Inisialisasi WiFi dan MQTT**:
+    - Inisialisasi dilakukan di fungsi `setup()`, mengatur koneksi WiFi, dan menyetel server MQTT.
+
+- **Fungsi loop()**:
+    - Fungsi ini berjalan terus-menerus, memeriksa koneksi MQTT, membaca data dari sensor ultrasonik, dan mengirim data tersebut ke broker MQTT.
+    - Sensor ultrasonik digunakan untuk mengukur jarak, dan jika jarak >= 30 cm, relay diaktifkan dan kondisi diatur ke `1` (aman). Jika jarak < 30 cm, relay dimatikan dan kondisi diatur ke `0` (berbahaya).
+
+Dengan mengikuti langkah-langkah di atas, Anda akan dapat membuat dan memahami kode yang terhubung ke WiFi, mengukur jarak menggunakan sensor ultrasonik, mengendalikan relay, dan mengirim data ke broker MQTT.
+
+#--------------------------------------------------------------------------------------
+
 ### Modul 3: Programming Block Aplikasi MQTT
 
 1. **Inisialisasi Global Variable**:
