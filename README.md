@@ -252,3 +252,42 @@ Dengan mengikuti langkah-langkah di atas, Anda akan dapat membuat dan memahami k
 Dengan langkah-langkah dan blok pemrograman di atas, aplikasi Anda akan dapat terhubung ke broker MQTT, menerima pesan, dan menampilkan data sesuai yang diharapkan.
 
 ### Jelasin di latar apa itu broker emqx
+
+
+#--------------------------------------------------------------------------------------
+
+### Modul 4: Ujicoba NodeMCU dan Aplikasi
+
+1. **Hubungkan NodeMCU ke Laptop**
+   - Sambungkan kabel USB ke NodeMCU.
+   - Sambungkan ujung kabel USB yang lain ke port USB di laptop Anda.
+
+2. **Unggah Program ke NodeMCU**
+   - Buka Arduino IDE.
+   - Muat program yang telah dibuat sebelumnya ke dalam Arduino IDE.
+   - Pilih papan (board) dan port yang benar di Arduino IDE.
+   - Klik tombol "Upload" untuk mengunggah program ke NodeMCU.
+
+3. **Putuskan Koneksi NodeMCU dari Laptop**
+   - Setelah proses unggah selesai, lepaskan kabel USB dari laptop.
+
+4. **Nyalakan NodeMCU**
+   - Colokkan kedua adaptor 9V ke stopkontak untuk memberikan daya ke NodeMCU.
+
+5. **Buka Aplikasi Deteksi Banjir**
+   - Buka aplikasi deteksi banjir yang telah dibuat sebelumnya.
+   - Tekan tombol "Connect" untuk membuat koneksi.
+
+6. **Uji Sensor Ultrasonik**
+   - Periksa apakah nilai jarak sudah ditampilkan.
+   - Uji sensor dengan menghalanginya menggunakan tangan atau benda lain untuk melihat perubahan jarak yang terukur.
+
+7. **Akhiri Pengujian**
+   - Setelah pengujian selesai, cabut kedua adaptor dari stopkontak untuk memutus aliran daya ke NodeMCU.
+
+## Catatan
+
+- Pastikan semua sambungan sudah aman sebelum menyalakan NodeMCU.
+- Jika nilai jarak tidak ditampilkan, periksa kembali sambungan dan program yang diunggah.
+
+---
