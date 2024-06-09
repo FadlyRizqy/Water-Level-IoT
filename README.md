@@ -27,10 +27,10 @@
     when UrsPahoMqttClient1.ConnectionStateChanged do
       if get UrsPahoMqttClient1.IsConnected
       then set button.Text to "Disconnect"
-           set tekskoneksi.Text to "Tekan untuk Memutus Koneksi."
+           set tekskoneksi.Text to "Tekan untuk Memutus Koneksi MQTT."
            call UrsPahoMqttClient1.Subscribe Topic "water_data" QoS 0
       else set button.Text to "Connect"
-           set tekskoneksi.Text to "Tekan untuk Terkoneksi dengan Sensor."
+           set tekskoneksi.Text to "Tekan untuk Terkoneksi dengan MQTT."
     ```
 
 4. **Event MQTT Message Received**:
@@ -38,14 +38,14 @@
     - Memeriksa apakah topik adalah `water_data`, jika ya, memproses pesan.
     - Pisahkan data yang diterima menggunakan `split text` dan simpan dalam global variable `data`.
     - Set label `jarak` untuk menampilkan jarak dalam cm dari elemen pertama dari list.
-    - Jika kondisi aman (nilai kedua dari list adalah `0`), set label `kondisi` menjadi "Safe". Jika tidak aman (nilai kedua adalah `1`), set label `kondisi` menjadi "Danger".
+    - Jika kondisi aman (nilai pada data = `1`), set label `kondisi` menjadi "Safe". Jika tidak aman (nilai pada data = `0`), set label `kondisi` menjadi "Danger".
 
     ```blocks
     when UrsPahoMqttClient1.MessageReceived do
       if get Topic = "water_data"
       then set global data to split text get Message at ","
            set jarak.Text to join select list item list get global data index 1 " cm"
-           if select list item list get global data index 2 = "0"
+           if select list item list get global data index 2 = "1"
            then set kondisi.Text to "Safe"
            else set kondisi.Text to "Danger"
     ```
@@ -70,4 +70,4 @@
 
 Dengan langkah-langkah dan blok pemrograman di atas, aplikasi Anda akan dapat terhubung ke broker MQTT, menerima pesan, dan menampilkan data sesuai yang diharapkan.
 
-## Jelasin di latar apa itu broker emqx
+### Jelasin di latar apa itu broker emqx
